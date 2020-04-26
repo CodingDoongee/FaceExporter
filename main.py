@@ -1,30 +1,23 @@
 import dlib, cv2
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-import matplotlib.patheffects as patt_effects
 import os
 
 detector = dlib.get_frontal_face_detector()
-# sp = dlib.shape_predictor('models/dlib_face_recognition_resnet_model_v1.dat')
 facerec = dlib.face_recognition_model_v1('models/dlib_face_recognition_resnet_model_v1.dat')
 img_paths = 'img/'
 file_list = os.listdir(img_paths)
 
 
 def find_faces(img):
-    dets = detector(img, 1)
-
-    if len(dets) == 0:
+    DetectorObj = detector(img, 1)
+    if len(DetectorObj) == 0:
         return [((0, 0), (0, 0))]
-
-    rects = []
-    for k, d in enumerate(dets):
-        rect = ((d.left(), d.top()), (d.right(), d.bottom()))
-        rects.append(rect)
-        break
-
-    return rects
+    else:
+        Boundary = []
+        for k, d in enumerate(DetectorObj):
+            rect = ((d.left(), d.top()), (d.right(), d.bottom()))
+            Boundary.append(rect)
+            break
+    return Boundary
 
 
 fileIdx = 0
