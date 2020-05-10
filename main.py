@@ -1,5 +1,6 @@
 import dlib, cv2
 import os, time
+from pytube import YouTube
 
 detector = dlib.get_frontal_face_detector()
 facerec = dlib.face_recognition_model_v1('models/dlib_face_recognition_resnet_model_v1.dat')
@@ -55,6 +56,12 @@ def VedieoExtraction():
         write_frames(vidcap, outfile, fps, second)
 
 
+def DownloadVideoFromYoutube(Address):
+    print('Download URL: ',Address)
+    print('Downloading...')
+    YouTube(Address).streams.filter(file_extension='mp4').get_highest_resolution().download(output_path='video', filename='FaceSet')
+    print('Download completed.')
+
 def write_frames(vidcap, outfile, fps, second):
     success = True
     counter = 0
@@ -71,6 +78,7 @@ def write_frames(vidcap, outfile, fps, second):
 
 
 if __name__ == "__main__":
-    VedieoExtraction()
-    time.sleep(10)
-    FaceExport()
+    DownloadVideoFromYoutube('https://www.youtube.com/watch?v=AvbwyGH9a3E')
+    #VedieoExtraction()
+    #time.sleep(10)
+    #FaceExport()
