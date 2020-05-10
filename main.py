@@ -51,7 +51,7 @@ def VedieoExtraction():
     for infile in video_list:
         outfile = img_paths + infile + 'frames'
         second = 0.1
-        vidcap = cv2.VideoCapture(infile)
+        vidcap = cv2.VideoCapture(video_paths+infile)
         fps = int(vidcap.get(cv2.CAP_PROP_FPS))
         write_frames(vidcap, outfile, fps, second)
 
@@ -61,6 +61,7 @@ def DownloadVideoFromYoutube(Address):
     print('Downloading...')
     YouTube(Address).streams.filter(file_extension='mp4').get_highest_resolution().download(output_path='video', filename='FaceSet')
     print('Download completed.')
+
 
 def write_frames(vidcap, outfile, fps, second):
     success = True
@@ -78,7 +79,7 @@ def write_frames(vidcap, outfile, fps, second):
 
 
 if __name__ == "__main__":
-    DownloadVideoFromYoutube('https://www.youtube.com/watch?v=AvbwyGH9a3E')
-    #VedieoExtraction()
-    #time.sleep(10)
-    #FaceExport()
+    #DownloadVideoFromYoutube('https://www.youtube.com/watch?v=AvbwyGH9a3E')
+    VedieoExtraction()
+    time.sleep(10)
+    FaceExport()
